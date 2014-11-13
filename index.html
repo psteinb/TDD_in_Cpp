@@ -4,7 +4,7 @@
 <head>
 	<meta charset="utf-8">
 
-	<title>Test-Driven Development - A hands-on introduction</title>
+	<title>Test-Driven Development - A C++ focused introduction</title>
 
 	<meta name="description" content="Tests first, make fail, make pass and refactor">
 	<meta name="author" content="Peter Steinbach" >
@@ -52,7 +52,8 @@
 	<h1>Test-Driven Development<br>in C++</h1>
 	<p><br></p>
 	<p>Dresden, Nov 13, 2014<br>
-		<a href="mailto:steinbach@scionics.de">Peter Steinbach</a>
+	  <a href="mailto:steinbach@scionics.de">Peter Steinbach</a><br>
+	  <a href="http://www.scionics.de">Scionics Computer Innovation GmbH</a><br>
 	</p>        
 	</section>
 
@@ -350,9 +351,9 @@
 	    <h2>State-of-the-Art Libraries</h2>
 	    <ul style="line-height: 150%;">
 	      <li><a href="https://github.com/philsquared/Catch" target="_blank">Catch</a> (C++03)</li>
-	      <li><a href="http://jimporter.github.io/mettle/" target="_blank">Mettle</a>(C++14)</li>
-	      <li><a href="https://github.com/martinmoene/lest" target="_blank">lest</a>(C++11)</li>
-	      <li><a href="http://banditcpp.org/" target="_blank">bandit</a>(C++11)</li>
+	      <li><a href="http://jimporter.github.io/mettle/" target="_blank">Mettle</a> (C++14)</li>
+	      <li><a href="https://github.com/martinmoene/lest" target="_blank">lest</a> (C++11)</li>
+	      <li><a href="http://banditcpp.org/" target="_blank">bandit</a> (C++11)</li>
 	    </ul>
 	  </section>
 
@@ -371,7 +372,8 @@ std::static_assert( sizeof(small_t) < sizeof(large_t) );
 
 BOOST_MPL_ASSERT( sizeof(small_t) < sizeof(large_t) );
 
-BOOST_MPL_ASSERT_MSG( sizeof(small_t) < sizeof(large_t) , MESSAGE_THAT_WILL_BE_PRINTED);
+BOOST_MPL_ASSERT_MSG( sizeof(small_t) < sizeof(large_t) , 
+                      MESSAGE_THAT_WILL_BE_PRINTED);
 
 BOOST_MPL_ASSERT_NOT(( boost::is_same< small_t,large_t > ));
 
