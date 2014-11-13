@@ -32,7 +32,7 @@ test% : test%.cpp
 
 clean : 
 	@echo -e "Cleaning directory from executables"
-	rm -vf `find . -executable`
+	@rm -vf `find . -type f -executable`
 
 help :
 	@echo -e "This Makefile assumes, that all source code files  "
