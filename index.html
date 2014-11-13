@@ -303,11 +303,12 @@
 	    <div style="width: 40%; display: inline-block;" >
 	      <p style="text-align: left;"><br>
 	    	<ul style="line-height: 150%;">
-		  <li class="fragment">Code is <b>less bug</b> free</li>
+		  <li class="fragment">code is <i>less bug</i> free</li>
 		  <li class="fragment">human interaction?</li>
-		  <li class="fragment">dead code?</li>
+		  <li class="fragment"><i>dead code?</i></li>
 		  <li class="fragment">can be misleading!</li>
-		  <li class="fragment">hinders good design</li>		  
+		  <li class="fragment"><i>hinders good design</i></li>	
+		  <li class="fragment">...</li>
 		</ul>
 		<br><br>
 	      </p>
@@ -322,77 +323,64 @@
 
 	<section>
 	  <section>
-	    <h2>Some Advanced TDD</h2>
+	    <h2>Tools</h2>
 	    <figure>
-	      <img width="400" style="max-width: 40%" src="local/Samurai_with_sword.jpg">
-	      <figcaption>from <a href="http://en.wikipedia.org/wiki/Samurai" target="_blank">wikipedia</a></figcaption></figure>
+	      <img style="max-width: 70%" src="local/tools.jpg">
+	      <figcaption>from <a href="http://upload.wikimedia.org/wikipedia/commons/f/f4/20060513_toolbox.jpg" target="_blank">wikipedia</a></figcaption></figure>
+	  </section>
+
+	  <section>
+	    <h2>Standard Libraries</h2>
+	    <ul style="line-height: 150%;">
+	      <li><a href="http://sourceforge.net/apps/mediawiki/cppunit/index.php?title=Main_Page" target="_blank">CppUnit</a> </li>
+	      <li><a href="http://code.google.com/p/googletest/" target="_blank">GoogleTest</a> </li>
+	      <li><a href="http://www.boost.org/doc/libs/1_57_0/libs/test/doc/html/index.html" target="_blank">Boost.Test</a> </li>
+	      <li><a href="https://launchpad.net/aeryn" target="_blank">Aeryn</a> </li>
+	      <li><a href="http://en.wikipedia.org/wiki/List_of_unit_testing_frameworks#C.2B.2B" target="_blank">and many more ...</a></li>
+	    </ul>
+	  </section>
+
+	  <section>
+	    <h2>Standard xUnit Approach</h2>
+	    <figure>
+	      <a href="http://junit.sourceforge.net/doc/cookstour/cookstour.htm" target="_blank">
+	      <img style="max-width: 100%" src="local/xUnit.gif"></a>
+	      <figcaption>from <a href="http://junit.sourceforge.net/doc/cookstour/cookstour.htm" target="_blank">junit.sourceforge.net</a></figcaption></figure>
 	  </section>
 	  
 	  <section>
-	    <h2>Test Doubles and Mocks</h2>
-	    <figure>
-	    <a href="https://openclipart.org/detail/118831/traffic-light-green-dan--01-by-anonymous">
-	      <img style="max-width: 25%;min-width: 20%;" src="local/traffic_light_green_dan__01.svg" />
-	    </a>
-	    <figcaption>from <a href="https://openclipart.org/detail/118831/traffic-light-green-dan--01-by-anonymous" target="_blank">openclipart.org</a></figcaption></figure>
+	    <h2>State-of-the-Art Libraries</h2>
+	    <ul style="line-height: 150%;">
+	      <li><a href="https://github.com/philsquared/Catch" target="_blank">Catch</a> (C++03)</li>
+	      <li><a href="http://jimporter.github.io/mettle/" target="_blank">Mettle</a>(C++14)</li>
+	      <li><a href="https://github.com/martinmoene/lest" target="_blank">lest</a>(C++11)</li>
+	      <li><a href="http://banditcpp.org/" target="_blank">bandit</a>(C++11)</li>
+	    </ul>
+	  </section>
+
+	  <section>
+	    <h2>Meta-Programming</h2>
 	    <p><br></p>
-	    <h3>Tests need to be fast!</h3>
-	    <p class="fragment"><br>
-	      Not every software is fast, mimic the slow parts!
-	      (<a href="http://martinfowler.com/articles/mocksArentStubs.html">details</a>)</p>
-	  </section>
-	  
-	  <section>
-	    <h2>Build system Integration</h2>
+	    <i>Code Inlined</i>
+		<pre><code data-trim>
+//test inside the code in C++11 or with BOOST_STATIC_ASSERT in C++03
+std::static_assert( sizeof(small_t) < sizeof(large_t) );
+				      </code></pre>
+	    <p><br></p>
+	    <i>Boost MPL Test Asserts</i>
 	    <pre><code data-trim>
-$ ctest -R b.*impl
-Test project /home/psteinb/development/sqy/build
-    Start  4: background_scheme_impl
-1/3 Test  #4: background_scheme_impl ...........   Passed    0.00 sec
-    Start  6: bitswap_scheme_impl
-2/3 Test  #6: bitswap_scheme_impl ..............   Passed    0.00 sec
-    Start 11: bench_utils_impl
-3/3 Test #11: bench_utils_impl .................   Passed    0.02 sec
+#include "boost/mpl/assert.hpp"
 
-100% tests passed, 0 tests failed out of 3
+BOOST_MPL_ASSERT( sizeof(small_t) < sizeof(large_t) );
 
-Total Test time (real) =   0.02 sec
+BOOST_MPL_ASSERT_MSG( sizeof(small_t) < sizeof(large_t) , MESSAGE_THAT_WILL_BE_PRINTED);
+
+BOOST_MPL_ASSERT_NOT(( boost::is_same< small_t,large_t > ));
+
+BOOST_MPL_ASSERT_RELATION( sizeof(small_t), <, sizeof(large_t) );
 	    </code></pre>
-	  </section>
+	   </section>
 
-	  <section>
-	    <h2>Documentation</h2>
-	    <p class="fragment"><b>Showcase API</b><br>	    </p>
-	  	    <pre class="fragment"><code data-trim>
-def test_simple_construction(self):
-  local_instance = foo()
-  return self.assertTrue(len(local_instance)<1)
-
-def test_iterator_construction(self):
-  local_instance = foo(xrange(1,10))
-  return self.assertTrue(len(local_instance)==10)
-	    </code></pre>
-	    <p><br></p>
-
-
-	    <p class="fragment"><b>bug logging
-	    </b><br>	    </p>
-	    <pre class="fragment"><code data-trim>
-def test_bug_42_init_failed(self):
-  # reproduce bug here
-  return self.assertTrue(works_now)
-	    </code></pre>
-	    <p><br></p>
-	    
-	    <p class="fragment"><b>showcase corner cases
-	    </b><br></p>
-	    <pre class="fragment"><code data-trim>
-def test_negative_values_throw(self):
-  return self.assertThrows(foo(-1))
-	    </code></pre>
-	    <p><br></p>
-	    Tests can be the Documentation!
-	  </section>
 	</section>
 
 	<section>
@@ -401,6 +389,7 @@ def test_negative_values_throw(self):
 	    <li class="fragment">real-world test-driven development has a learning curve</li>
 	    <li class="fragment">creates confidence and reproducibility</li>
 	    <li class="fragment">good software design step-by-step</li>
+	    <li class="fragment">a lot of tools available</li>
 	    <li class="fragment">no silver bullet!</li>
 	  </ul>
 	</section>
@@ -418,21 +407,15 @@ def test_negative_values_throw(self):
 
 	<section>
 	  <h2>Literature</h2>
-	  <ul style="text-align: left;">
+	  <ul style="text-align: left;line-height: 150%;">
 	    <li>Robert C. Martin, <em>Agile Software Development: Principles, Patterns and Practices.</em> Pearson Education, 2002 </li>
 	    <li>Kent Beck, <em>Test-Driven Development by Example.</em> Addison-Wesley Longman, 2002</li>
 	    <li>Overload Magazine, <a href="http://accu.org/index.php/journals/c340/" target="_blank">Issue 122</a></li>
+	    <li>"<a href="http://www.levelofindirection.com/journal/2014/10/7/modern-c-testing.html" target="_blank">Modern C++ Testing</a>" by Phil Nash (author of catch)</li>
 	  </ul>
 	  </section>
 
-	  <section>
-	  <h2>Libraries</h2>
-	  <ul style="text-align: left;">
-	    <li><em>Java</em>: JUnit, Fitnesse</li>
-	    <li><em>python</em>: unittest, nose, pytest</li>
-	    <li><em>c++</em>: cpptest, boost utf, google test/mock</li>
-	  </ul>
-	  </section>
+	  
 
 		</div>
 
