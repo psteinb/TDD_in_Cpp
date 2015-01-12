@@ -1,11 +1,16 @@
 # Test-Driven Development
 
+von Peter Steinbach
+
 This repository contains slides for introducing test-driven development to experienced C++ programmers. The presentation entails a live coding and a demonstration (both not part of the slides).
+
+## Online
+
+[View Slides](https://cpp-dresden.github.io/Slides/2014-11-13%20Peter%20Steinbach%20TDD%20C++)
 
 ## Code Examples
 
 The code examples are contained in the `demo` folder.
-
 
 ## License
 
@@ -18,5 +23,3 @@ All material (mostly images) contained in the slides are linked to their source 
 ## Open Source Teaching
 
 If you find mistakes or would like to discuss my approach to teaching this topic feel free to get in touch by mail (steinbach@scionics.de) or through the github issue tracker.
-
-
